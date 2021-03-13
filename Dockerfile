@@ -31,7 +31,10 @@ COPY . .
 
 RUN chown -R www:www .
 
+COPY .docker/start-entrypoint.sh /start.sh
+RUN chmod 755 /start.sh
+
 # Change current user to www
 USER www
 
-CMD supervisord -n -c /etc/supervisor/supervisord.conf
+CMD ["/start.sh"]

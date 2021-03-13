@@ -11,3 +11,5 @@ storage/logs/*
 node_modules
 vendor
 logs
+*.log
+supervisord.pid
