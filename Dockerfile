@@ -1,6 +1,6 @@
 FROM php:7.4-fpm
 
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/html /var/www/supervisor
 
 # Set working directory
 WORKDIR /var/www/html
@@ -24,12 +24,9 @@ COPY .docker/supervisor.d /etc/supervisor/supervisor.d
 COPY .docker/supervisord.conf /etc/supervisor/supervisord.conf
 
 # Add user for laravel application
-RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
+RUN groupadd --gid 1000 www && useradd --uid 1000 -ms /bin/bash --gid www www
 
-# Copy existing application directory permissions
-COPY . .
-
-RUN chown -R www:www .
+RUN chown -R www:www . /var/www/supervisor
 
 COPY .docker/start-entrypoint.sh /start.sh
 RUN chmod 755 /start.sh
