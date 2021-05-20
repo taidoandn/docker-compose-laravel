@@ -45,10 +45,10 @@ nrs:
 
 #make exec name=php
 exec:
-	docker-compose exec $(name) /bin/bash
+	docker-compose exec $(name) bash || docker-compose exec $(name) sh
 
 php:
-	docker-compose exec php /bin/bash
+	docker-compose exec php bash
 
 logs:
 	docker-compose logs $(name)
